@@ -1,6 +1,6 @@
-package com.mydom.rest_api_movies.models.repository;
+package com.mydom.rest_api_movies.model.repository;
 
-import com.mydom.rest_api_movies.models.dto.Genre;
+import com.mydom.rest_api_movies.model.dto.Genre;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.mydom.rest_api_movies.models.dto;
+package com.mydom.rest_api_movies.model.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,14 +12,14 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
+
 @Entity
 @Table(name = "genres")
 @NoArgsConstructor
 public class Genre {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("genre_id")
+//    @JsonProperty("genre_id")
     private UUID id;
     private String name;
 
@@ -27,6 +27,7 @@ public class Genre {
         this.id = id;
         this.name = name;
     }
+
     @PrePersist
     public void prePersist() {
         if (this.id == null) {
@@ -34,6 +35,6 @@ public class Genre {
         }
     }
 
-    @ManyToMany(mappedBy = "genres") // Mapped by refers to the collection in Movie
-    private Set<Movie> movies = new HashSet<>();
+//    @ManyToMany(mappedBy = "genres") // Mapped by refers to the collection in Movie
+//    private Set<Movie> movies = new HashSet<>();
 }

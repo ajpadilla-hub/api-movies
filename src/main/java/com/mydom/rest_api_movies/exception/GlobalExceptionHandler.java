@@ -1,7 +1,6 @@
-package com.mydom.rest_api_movies.exceptions;
+package com.mydom.rest_api_movies.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +20,6 @@ public class GlobalExceptionHandler {
     )
     @ResponseBody
     public ErrorMessage notFoundRequest(HttpServletRequest httpServletRequest, Exception exception) {
-
         return new ErrorMessage(httpServletRequest.getRequestURI(), exception);
     }
 }

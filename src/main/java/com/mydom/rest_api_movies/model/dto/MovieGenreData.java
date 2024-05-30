@@ -1,4 +1,4 @@
-package com.mydom.rest_api_movies.models.dto;
+package com.mydom.rest_api_movies.model.dto;
 
 import org.springframework.stereotype.Component;
 import java.util.UUID;

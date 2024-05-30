@@ -1,4 +1,4 @@
-package com.mydom.rest_api_movies.exceptions;
+package com.mydom.rest_api_movies.exception;
 
 public class NotFoundException extends RuntimeException {
 

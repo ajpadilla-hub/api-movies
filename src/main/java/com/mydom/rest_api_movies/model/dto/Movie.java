@@ -1,10 +1,11 @@
-package com.mydom.rest_api_movies.models.dto;
+package com.mydom.rest_api_movies.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class Movie {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("movie_id")
+//    @JsonProperty("movie_id")
     private UUID id;
     private String title;
     private String overview;
