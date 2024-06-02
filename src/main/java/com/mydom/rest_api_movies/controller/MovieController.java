@@ -11,7 +11,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -78,11 +80,12 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createMovie(@RequestBody Movie movie) {
+    public ResponseEntity<String> createMovie(@RequestBody Movie movie) {
         // Basic validation (optional, but recommended for strong input control)
         if (movie.getTitle() == null || movie.getTitle().isEmpty()) {
-            return ResponseEntity.badRequest().body("Movie title is required");
+            return ResponseEntity.badRequest().body(null);
         }
+
 
         // Call service or perform further processing (if applicable)
         Movie savedMovie;
@@ -90,15 +93,16 @@ public class MovieController {
             savedMovie = movieService.create(movie); // Example using MovieService
         } catch (Exception e) {
             // Handle potential exceptions during movie creation (e.g., database errors)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating movie");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand().toUri();
         // Handle successful creation
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Movie movie) {
+    public ResponseEntity<Movie> update(@PathVariable UUID id, @RequestBody Movie movie) {
 
         // Optional: Basic validation for ID and incoming data
         if (id == null || movie == null) {
@@ -111,7 +115,7 @@ public class MovieController {
             updatedMovie = movieService.update(id, movie); // Example using MovieService
         } catch (Exception e) {
             // Handle potential exceptions during movie update (e.g., database errors)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating movie");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
         // Handle successful update (check if movie was found)
@@ -123,8 +127,8 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
         movieService.deleteById(UUID.fromString(id));
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(null);
     }
 }
