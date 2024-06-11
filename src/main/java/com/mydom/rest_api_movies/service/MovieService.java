@@ -32,7 +32,7 @@ public class MovieService {
     }
 
     public Optional<Movie> findById(UUID id) {
-        return repository.findById(id);
+                return repository.findById(id);
     }
 
     public void save(Movie movie) {
